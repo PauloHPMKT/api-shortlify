@@ -11,3 +11,5 @@ RUN npm install
 USER node
 
 EXPOSE 3009
+
+## CMD [ "sh", "-c", "npm install" ]
