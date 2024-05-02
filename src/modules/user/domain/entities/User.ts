@@ -1,4 +1,4 @@
-import crypto from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import { UserModel } from '../models/user.model';
 
 export class User {
@@ -7,18 +7,14 @@ export class User {
   public email: string;
   public password: string;
   public avatar: string;
-  public is_active: boolean;
+  public is_active?: boolean;
   public created_at?: Date;
 
   constructor(props: UserModel.toCreate, _id?: string) {
     Object.assign(this, props);
-    this.generateId(_id);
+    this.avatar = this.avatar ?? null;
+    this.is_active = this.is_active || true;
     this.created_at = this.created_at || new Date();
-  }
-
-  private generateId(id: string) {
-    if (!id) {
-      id = crypto.randomBytes(24).toString('hex');
-    }
+    this._id = _id || randomBytes(12).toString('hex');
   }
 }
