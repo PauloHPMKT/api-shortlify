@@ -15,4 +15,8 @@ export const userProvider = (): Provider[] => [
     provide: 'VerifyUserRepository',
     useClass: UsersMongooseRepository,
   },
+  {
+    provide: 'FindUserByEmailRepository',
+    useClass: UsersMongooseRepository,
+  },
 ];

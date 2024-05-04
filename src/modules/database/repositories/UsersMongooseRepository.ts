@@ -4,9 +4,13 @@ import { CreateUserRepository } from '../../user/infra/repositories/CreateUserRe
 import { UserDocument } from '../../user/infra/schemas/user.schema';
 import { VerifyUserRepository } from '../../user/infra/repositories/VerifyUserRepository';
 import { User } from '../../user/domain/entities/User';
+import { FindUserByEmailRepository } from 'src/modules/user/infra/repositories/FindUserByEmailRepository';
 
 export class UsersMongooseRepository
-  implements CreateUserRepository, VerifyUserRepository
+  implements
+    CreateUserRepository,
+    VerifyUserRepository,
+    FindUserByEmailRepository
 {
   constructor(
     @Inject('USER_MODEL')
@@ -21,5 +25,11 @@ export class UsersMongooseRepository
   async verify(data: Partial<User>): Promise<boolean> {
     const user = await this.userModel.exists(data);
     return !!user;
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userModel.findOne({ email });
+    console.log(user);
+    return;
   }
 }
