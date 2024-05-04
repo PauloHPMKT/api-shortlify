@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { CreateUserUseCase } from '../../application/useCases/CreateUserUseCase';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
 
@@ -6,8 +13,27 @@ import { CreateUserDto } from '../dtos/CreateUser.dto';
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(@Body() data: CreateUserDto) {
-    return await this.createUserUseCase.execute(data);
+    const { name, email, password } = data;
+    try {
+      return await this.createUserUseCase.execute({
+        name,
+        email,
+        password,
+      });
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: error.message,
+        },
+        HttpStatus.BAD_REQUEST,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 }
