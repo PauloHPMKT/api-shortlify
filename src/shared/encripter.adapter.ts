@@ -7,4 +7,8 @@ export class EncriptAdapter implements EncriptPort {
     const hash = await bcrypt.hash(data, salt);
     return hash;
   }
+
+  async compare(current: string, inputData: string): Promise<boolean> {
+    return await bcrypt.compare(current, inputData);
+  }
 }
