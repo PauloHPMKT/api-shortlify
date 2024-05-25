@@ -1,11 +1,10 @@
 import { Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { CreateUserRepository } from '../../user/infra/repositories/CreateUserRepository';
+import { CreateUserRepository } from '../../user/application/repositories/CreateUserRepository';
 import { UserDocument } from '../../user/infra/schemas/user.schema';
-import { VerifyUserRepository } from '../../user/infra/repositories/VerifyUserRepository';
+import { VerifyUserRepository } from '../../user/application/repositories/VerifyUserRepository';
 import { User } from '../../user/domain/entities/User';
-import { FindUserByEmailRepository } from 'src/modules/user/infra/repositories/FindUserByEmailRepository';
-
+import { FindUserByEmailRepository } from 'src/modules/user/application/repositories/FindUserByEmailRepository';
 export class UsersMongooseRepository
   implements
     CreateUserRepository,
@@ -27,9 +26,11 @@ export class UsersMongooseRepository
     return !!user;
   }
 
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.userModel.findOne({ email });
-    console.log(user);
-    return;
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.userModel.findOne({ email }).lean();
+    return {
+      _id: user._id.toString(),
+      ...user,
+    } as unknown as User;
   }
 }
