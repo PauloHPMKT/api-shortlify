@@ -8,11 +8,13 @@ import {
 } from '@nestjs/common';
 import { CreateUserUseCase } from '../../application/useCases/CreateUserUseCase';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
+import { IsPublic } from '../../../auth/presentation/decorators/is-public.decorator';
 
 @Controller('users')
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
+  @IsPublic()
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(@Body() data: CreateUserDto) {
