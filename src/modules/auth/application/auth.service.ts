@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { User } from 'src/modules/user/domain/entities/User';
-import { FindUserByEmailRepository } from 'src/modules/user/infra/repositories/FindUserByEmailRepository';
+import { FindUserByEmailRepository } from 'src/modules/user/application/repositories/FindUserByEmailRepository';
 import { EncriptAdapter } from 'src/shared/encripter.adapter';
 import { UserPayload } from '../presentation/models/user.payload';
 import { JwtService } from '@nestjs/jwt';

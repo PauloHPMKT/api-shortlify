@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { FindUserByEmailRepository } from '../../infra/repositories/FindUserByEmailRepository';
+import { FindUserByEmailRepository } from '../repositories/FindUserByEmailRepository';
 import { User } from '../../domain/entities/User';
 
 export class FindUserByEmailUseCase {

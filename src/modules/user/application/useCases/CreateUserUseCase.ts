@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserRepository } from '../../infra/repositories/CreateUserRepository';
+import { CreateUserRepository } from '../repositories/CreateUserRepository';
 import { CreateUserDto } from '../../presentation/dtos/CreateUser.dto';
-import { VerifyUserRepository } from '../../infra/repositories/VerifyUserRepository';
+import { VerifyUserRepository } from '../repositories/VerifyUserRepository';
 import { EncriptAdapter } from '../../../../shared/encripter.adapter';
 import { User } from '../../domain/entities/User';
 
