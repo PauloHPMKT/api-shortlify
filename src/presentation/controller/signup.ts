@@ -2,7 +2,7 @@ import { HttpRequest } from '../protocols/request';
 import { HttpResponse } from '../protocols/response';
 import { MissingParamError } from '../errors/missing-param.error';
 import { InvalidParamError } from '../errors/invalid-param.error';
-import { badRequest } from '../helpers/http-responses';
+import { badRequest, serverError } from '../helpers/http-responses';
 import { Controller } from '../protocols/controller';
 import { EmailValidator } from '../protocols/email-validator';
 import { AddAccount } from '../../domain/usecases/add-account';
@@ -43,10 +43,7 @@ export class SignupController implements Controller {
         password,
       });
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: new Error('Internal server error'),
-      };
+      return serverError();
     }
   }
 }

@@ -3,6 +3,7 @@ import { AddAccountModel } from '../../domain/models/add-account';
 import { AddAccount } from '../../domain/usecases/add-account';
 import { InvalidParamError } from '../errors/invalid-param.error';
 import { MissingParamError } from '../errors/missing-param.error';
+import { ServerError } from '../errors/server-error';
 import { EmailValidator } from '../protocols/email-validator';
 import { SignupController } from './signup';
 
@@ -178,6 +179,6 @@ describe('Signup Controller', () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new Error('Internal server error'));
+    expect(httpResponse.body).toEqual(new ServerError());
   });
 });
