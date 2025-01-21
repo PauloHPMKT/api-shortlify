@@ -1,1 +1,1 @@
-console.log('signup.ts');
+export class SignupController {}
