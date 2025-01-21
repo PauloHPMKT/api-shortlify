@@ -1,14 +1,29 @@
 import { InvalidParamError } from '../errors/invalid-param.error';
 import { MissingParamError } from '../errors/missing-param.error';
+import { EmailValidator } from '../protocols/email-validator';
 import { SignupController } from './signup';
 
+const makeEmailValidator = (): EmailValidator => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid(email: string): boolean {
+      return true;
+    }
+  }
+  return new EmailValidatorStub();
+};
+
 const makeSut = (): SutTypes => {
-  const sut = new SignupController();
-  return { sut };
+  const emailValidatorStub = makeEmailValidator();
+  const sut = new SignupController(emailValidatorStub);
+  return {
+    sut,
+    emailValidatorStub,
+  };
 };
 
 interface SutTypes {
   sut: SignupController;
+  emailValidatorStub: EmailValidator;
 }
 
 describe('Signup Controller', () => {
@@ -90,5 +105,20 @@ describe('Signup Controller', () => {
     expect(httpResponse.body).toEqual(
       new InvalidParamError('passwordConfirmation'),
     );
+  });
+
+  it('should call EmailValidator with correct email', async () => {
+    const { sut, emailValidatorStub } = makeSut();
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
+    const httpRequest = {
+      body: {
+        name: 'any_email',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password',
+      },
+    };
+    await sut.handle(httpRequest);
+    expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com');
   });
 });
