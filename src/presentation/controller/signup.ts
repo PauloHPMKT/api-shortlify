@@ -1,6 +1,6 @@
-import { MissingParamError } from '../errors/missing-param.error';
 import { HttpRequest } from '../http/request';
 import { HttpResponse } from '../http/response';
+import { MissingParamError } from '../errors/missing-param.error';
 
 export class SignupController {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -18,6 +18,14 @@ export class SignupController {
             body: new MissingParamError(field),
           };
         }
+      }
+
+      const { name, email, password, passwordConfirmation } = httpRequest.body;
+      if (password !== passwordConfirmation) {
+        return {
+          statusCode: 400,
+          body: new Error('Invalid param passwordConfirmation'),
+        };
       }
     } catch (error) {
       return {
