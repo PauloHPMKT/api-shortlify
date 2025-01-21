@@ -1,15 +1,12 @@
 export class SignupController {
   handle(httpRequest: any): any {
-    if (!httpRequest.body.name) {
-      return {
-        statusCode: 400,
-      };
-    }
-
-    if (!httpRequest.body.email) {
-      return {
-        statusCode: 400,
-      };
+    const requiredFields = ['name', 'email'];
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return {
+          statusCode: 400,
+        };
+      }
     }
   }
 }
