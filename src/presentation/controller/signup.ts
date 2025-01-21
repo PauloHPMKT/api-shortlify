@@ -1,5 +1,8 @@
+import { HttpRequest } from '../http/request';
+import { HttpResponse } from '../http/response';
+
 export class SignupController {
-  handle(httpRequest: any): any {
+  handle(httpRequest: HttpRequest): HttpResponse {
     const requiredFields = ['name', 'email'];
     for (const field of requiredFields) {
       if (!httpRequest.body[field]) {
