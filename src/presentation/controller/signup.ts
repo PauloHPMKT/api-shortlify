@@ -2,6 +2,7 @@ import { HttpRequest } from '../http/request';
 import { HttpResponse } from '../http/response';
 import { MissingParamError } from '../errors/missing-param.error';
 import { InvalidParamError } from '../errors/invalid-param.error';
+import { badRequest } from '../helpers/http-responses';
 
 export class SignupController {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -14,19 +15,13 @@ export class SignupController {
       ];
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
-          return {
-            statusCode: 400,
-            body: new MissingParamError(field),
-          };
+          return badRequest(new MissingParamError(field));
         }
       }
 
       const { name, email, password, passwordConfirmation } = httpRequest.body;
       if (password !== passwordConfirmation) {
-        return {
-          statusCode: 400,
-          body: new InvalidParamError('passwordConfirmation'),
-        };
+        return badRequest(new InvalidParamError('passwordConfirmation'));
       }
     } catch (error) {
       return {
