@@ -12,7 +12,7 @@ const config = {
   testEnvironment: 'node',
   //preset: '@shelf/jest-mongodb',
   transform: {
-    '.+\\.ts$': '@swc/jest',
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
 };
 
