@@ -5,5 +5,11 @@ export class SignupController {
         statusCode: 400,
       };
     }
+
+    if (!httpRequest.body.email) {
+      return {
+        statusCode: 400,
+      };
+    }
   }
 }
