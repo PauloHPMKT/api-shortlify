@@ -13,4 +13,17 @@ describe('Account entity', () => {
     const sut = makeSut();
     expect(sut).toBeDefined();
   });
+
+  it('should create an account with correct values', () => {
+    const sut = makeSut();
+    expect(sut).toEqual({
+      name: 'any_name',
+      email: 'any_email',
+      password: 'any_password',
+      shortenLinks: [],
+      avatar: null,
+      isActive: true,
+      createdAt: new Date(),
+    });
+  });
 });
