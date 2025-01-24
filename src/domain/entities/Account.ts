@@ -1,5 +1,3 @@
-import { randomBytes } from 'crypto';
-
 export class Account {
   public readonly id: string;
   public name: string;
