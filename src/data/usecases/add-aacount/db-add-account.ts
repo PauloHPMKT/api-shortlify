@@ -3,14 +3,23 @@ import { AddAccountModel } from '../../../domain/models/add-account';
 import { AddAccount } from '../../../domain/usecases/add-account';
 import { AddAccountRepository } from '../../protocols/add-account-repository';
 import { Encrypter } from '../../protocols/encrypter';
+import { VerifyAccountRepository } from '../../protocols/verify-account-repository';
 
 export class DbAddAccount implements AddAccount {
   constructor(
     private readonly encrypter: Encrypter,
     private readonly addAccountRepository: AddAccountRepository,
+    private readonly verifyAccountRepository: VerifyAccountRepository,
   ) {}
 
   async add(accountData: AddAccountModel): Promise<Account> {
+    const existAccount = await this.verifyAccountRepository.get(
+      accountData.email,
+    );
+    if (existAccount) {
+      throw new Error('Account already exists');
+    }
+
     const hashedPassword = await this.encrypter.encrypt(accountData.password);
     const account = new Account({
       name: accountData.name,
