@@ -162,6 +162,7 @@ describe('DbAddAccount Usecase', () => {
     };
     const promise = sut.add(accountData);
     await expect(promise).rejects.toThrow();
+    expect(promise).rejects.toThrow(new Error('Account already exists'));
   });
 
   it('should return an account on success', async () => {
