@@ -16,6 +16,7 @@ describe('Account entity', () => {
 
   it('should create an account with correct values', () => {
     const sut = makeSut();
+    const createdAt = new Date();
     expect(sut).toEqual({
       name: 'any_name',
       email: 'any_email',
@@ -23,7 +24,7 @@ describe('Account entity', () => {
       shortenLinks: [],
       avatar: null,
       isActive: true,
-      createdAt: new Date(),
+      createdAt,
     });
   });
 });
