@@ -1,4 +1,3 @@
-import { AccountModel } from '../../../../domain/models/account';
 import { MongoHelper } from '../helpers/mongo-helper';
 import { AccountMongoRepository } from './account-repository';
 
@@ -12,6 +11,8 @@ describe('AccountRepository', () => {
   });
 
   afterAll(async () => {
+    const accountsCollection = MongoHelper.getCollection('accounts');
+    await accountsCollection.deleteMany({});
     await MongoHelper.disconnect();
   });
 
