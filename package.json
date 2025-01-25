@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --silent",
     "prepare": "husky",
-    "test:staged": "npm test --passWithNoTests --findRelatedTests"
+    "test:staged": "npm test --passWithNoTests --findRelatedTests --silent"
   },
   "keywords": [],
   "author": "",
