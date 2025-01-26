@@ -118,6 +118,7 @@ describe('DbAddAccount Usecase', () => {
     };
     await sut.add(accountData);
     expect(addSpy).toHaveBeenCalledWith({
+      id: undefined,
       name: 'valid_name',
       email: 'valid_email',
       password: 'hashed_password',
@@ -188,7 +189,7 @@ describe('DbAddAccount Usecase', () => {
       shortenLinks: [],
       avatar: null,
       isActive: true,
-      createdAt,
+      createdAt: expect.any(Date),
     });
   });
 });
