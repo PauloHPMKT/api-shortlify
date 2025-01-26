@@ -1,8 +1,12 @@
-import { Account } from '../../domain/entities/Account';
-import { AddAccountModel } from '../../domain/models/add-account';
-import { AddAccount } from '../../domain/usecases/add-account';
-import { InvalidParamError, MissingParamError, ServerError } from '../errors';
-import { EmailValidator } from '../protocols';
+import { Account } from '../../../domain/entities/account/Account';
+import { AddAccountModel } from '../../../domain/models/add-account';
+import { AddAccount } from '../../../domain/usecases/add-account';
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError,
+} from '../../errors';
+import { EmailValidator } from '../../protocols';
 import { SignupController } from './signup';
 
 const makeAddAccount = (): AddAccount => {

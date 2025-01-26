@@ -1,4 +1,4 @@
-import { Account } from '../../../domain/entities/Account';
+import { Account } from '../../../domain/entities/account/Account';
 import { AccountModel } from '../../../domain/models/account';
 import {
   Encrypter,

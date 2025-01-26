@@ -1,4 +1,4 @@
-import { Account } from '../../../domain/entities/Account';
+import { Account } from '../../../domain/entities/account/Account';
 import { AddAccountModel } from '../../../domain/models/add-account';
 import { AddAccount } from '../../../domain/usecases/add-account';
 import {
