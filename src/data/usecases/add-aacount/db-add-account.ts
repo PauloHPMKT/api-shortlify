@@ -1,9 +1,11 @@
 import { Account } from '../../../domain/entities/Account';
 import { AddAccountModel } from '../../../domain/models/add-account';
 import { AddAccount } from '../../../domain/usecases/add-account';
-import { AddAccountRepository } from '../../protocols/add-account-repository';
-import { Encrypter } from '../../protocols/encrypter';
-import { VerifyAccountRepository } from '../../protocols/verify-account-repository';
+import {
+  Encrypter,
+  AddAccountRepository,
+  VerifyAccountRepository,
+} from '../../protocols';
 
 export class DbAddAccount implements AddAccount {
   constructor(
