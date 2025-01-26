@@ -23,4 +23,17 @@ describe('CreateShortenLinkController', () => {
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(new MissingParamError('originalUrl'));
   });
+
+  it('should return 400 if no accountId is provided', async () => {
+    const sut = makeSut();
+    const httpRequest = {
+      body: {
+        originalUrl: 'any_url',
+        accountId: '',
+      },
+    };
+    const response = await sut.handle(httpRequest);
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(new MissingParamError('accountId'));
+  });
 });
