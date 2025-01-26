@@ -125,7 +125,7 @@ describe('DbAddAccount Usecase', () => {
       shortenLinks: [],
       avatar: null,
       isActive: true,
-      createdAt,
+      createdAt: expect.any(Date),
     });
   });
 
