@@ -1,9 +1,9 @@
-GET http://localhost:3003/api/signup
+POST http://localhost:3003/api/signup
 Content-Type: application/json
 
 {
-  "name": "Paulo",
-  "email": "pauloserg861@gmail.com",
+  "name": "Haliane",
+  "email": "halianepessoa20@gmail.com",
   "password": "123456",
-  "confirmPassword": "123456"
+  "passwordConfirmation": "123456"
 }
