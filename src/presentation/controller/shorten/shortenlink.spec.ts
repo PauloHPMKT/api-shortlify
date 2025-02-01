@@ -11,12 +11,13 @@ describe('ShortenLinkController', () => {
     const sut = new ShortenLinkController();
     const httpRequest = {
       body: {
-        url: '',
+        shortUrl: '',
+        longUrl: 'any_long_url',
         accountId: 'any_account_id',
       },
     };
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new MissingParamError('url'));
+    expect(response.body).toEqual(new MissingParamError('shortUrl'));
   });
 });
