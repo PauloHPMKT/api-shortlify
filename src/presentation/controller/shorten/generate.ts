@@ -22,7 +22,11 @@ export class GenerateBitlinkController {
         return badRequest(new InvalidParamError('long_url'));
       }
 
-      await this.createShortenLink.execute({ long_url });
+      const shortenData = await this.createShortenLink.execute({ long_url });
+      return {
+        statusCode: 200,
+        body: shortenData,
+      };
     } catch (error) {
       return {
         statusCode: 500,
