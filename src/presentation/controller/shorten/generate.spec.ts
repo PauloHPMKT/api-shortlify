@@ -3,7 +3,7 @@ import { CreateShortenLink } from '../../../domain/usecases/shorten/create-short
 import { InvalidParamError, MissingParamError } from '../../errors';
 import { serverError } from '../../helpers/http-responses';
 import { UrlValidator } from '../../protocols/url-validator';
-import { GenerateBitlinkController } from './generate';
+import { GenerateShortenLinkController } from './generate';
 
 const makeCreateShortenLink = (): CreateShortenLink => {
   class CreateShortenLinkStub implements CreateShortenLink {
@@ -39,7 +39,7 @@ const makeUrlValidator = (): UrlValidator => {
 const makeSut = (): SutTypes => {
   const urlValidatorStub = makeUrlValidator();
   const createShortenLinkStub = makeCreateShortenLink();
-  const sut = new GenerateBitlinkController(
+  const sut = new GenerateShortenLinkController(
     urlValidatorStub,
     createShortenLinkStub,
   );
@@ -51,12 +51,12 @@ const makeSut = (): SutTypes => {
 };
 
 interface SutTypes {
-  sut: GenerateBitlinkController;
+  sut: GenerateShortenLinkController;
   urlValidatorStub: UrlValidator;
   createShortenLinkStub: CreateShortenLink;
 }
 
-describe('GenerateBitlinkController', () => {
+describe('GenerateShortenLinkController', () => {
   beforeAll(() => {
     jest.useFakeTimers({ now: new Date('2025-02-01') });
     jest.setSystemTime(new Date('2025-02-01'));
@@ -108,7 +108,7 @@ describe('GenerateBitlinkController', () => {
     expect(isValidSpy).toHaveBeenCalledWith('any_url');
   });
 
-  it('should return 500 if GenerateBitlinkController throws', async () => {
+  it('should return 500 if GenerateShortenLinkController throws', async () => {
     const { sut, createShortenLinkStub } = makeSut();
     jest.spyOn(createShortenLinkStub, 'execute').mockImplementationOnce(() => {
       throw new Error();

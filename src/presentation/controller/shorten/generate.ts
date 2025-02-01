@@ -4,7 +4,7 @@ import { badRequest, serverError } from '../../helpers/http-responses';
 import { HttpRequest, HttpResponse } from '../../protocols';
 import { UrlValidator } from '../../protocols/url-validator';
 
-export class GenerateBitlinkController {
+export class GenerateShortenLinkController {
   constructor(
     private readonly urlValidator: UrlValidator,
     private readonly createShortenLink: CreateShortenLink,
