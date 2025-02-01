@@ -57,6 +57,15 @@ interface SutTypes {
 }
 
 describe('GenerateBitlinkController', () => {
+  beforeAll(() => {
+    jest.useFakeTimers({ now: new Date('2025-02-01') });
+    jest.setSystemTime(new Date('2025-02-01'));
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('should be defined', () => {
     const { sut } = makeSut();
     expect(sut).toBeDefined();
@@ -112,5 +121,31 @@ describe('GenerateBitlinkController', () => {
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(500);
     expect(response.body).toEqual(serverError());
+  });
+
+  it('should call CreateShortenLink with correct values', async () => {
+    const { sut, createShortenLinkStub } = makeSut();
+    const executeSpy = jest.spyOn(createShortenLinkStub, 'execute');
+    const httpRequest = {
+      body: {
+        long_url: 'any_url',
+      },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(executeSpy).toHaveBeenCalledWith({ long_url: 'any_url' });
+    expect(executeSpy).toHaveBeenCalledTimes(1);
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body).toEqual({
+      id: 'valid_id',
+      archived: true,
+      custom_bitlinks: [],
+      deeplinks: [],
+      custom_id: 'valid_custom_id',
+      link: 'valid_link',
+      long_url: 'valid_long_url',
+      references: {},
+      tags: [],
+      created_at: new Date('2025-02-01'),
+    });
   });
 });
