@@ -16,6 +16,7 @@ export class SignupController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      const { name, email, password, passwordConfirmation } = httpRequest.body;
       const requiredFields = [
         'name',
         'email',
@@ -28,7 +29,6 @@ export class SignupController implements Controller {
         }
       }
 
-      const { name, email, password, passwordConfirmation } = httpRequest.body;
       if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'));
       }
