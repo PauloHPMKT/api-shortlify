@@ -55,4 +55,16 @@ describe('GenerateBitlinkController', () => {
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(new InvalidParamError('long_url'));
   });
+
+  it('should call UrlValidator with correct long url', async () => {
+    const { sut, urlValidatorStub } = makeSut();
+    const isValidSpy = jest.spyOn(urlValidatorStub, 'isValid');
+    const httpRequest = {
+      body: {
+        long_url: 'any_url',
+      },
+    };
+    await sut.handle(httpRequest);
+    expect(isValidSpy).toHaveBeenCalledWith('any_url');
+  });
 });
