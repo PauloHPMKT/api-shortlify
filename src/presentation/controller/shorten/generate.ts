@@ -1,20 +1,33 @@
+import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { badRequest } from '../../helpers/http-responses';
+import { badRequest, serverError } from '../../helpers/http-responses';
 import { HttpRequest, HttpResponse } from '../../protocols';
 import { UrlValidator } from '../../protocols/url-validator';
 
 export class GenerateBitlinkController {
-  constructor(private readonly urlValidator: UrlValidator) {}
+  constructor(
+    private readonly urlValidator: UrlValidator,
+    private readonly createShortenLink: CreateShortenLink,
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { long_url } = httpRequest.body;
+    try {
+      const { long_url } = httpRequest.body;
 
-    if (!long_url) {
-      return badRequest(new MissingParamError('long_url'));
-    }
-    const isUrlValid = this.urlValidator.isValid(long_url);
-    if (!isUrlValid) {
-      return badRequest(new InvalidParamError('long_url'));
+      if (!long_url) {
+        return badRequest(new MissingParamError('long_url'));
+      }
+      const isUrlValid = this.urlValidator.isValid(long_url);
+      if (!isUrlValid) {
+        return badRequest(new InvalidParamError('long_url'));
+      }
+
+      await this.createShortenLink.execute({ long_url });
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: serverError(),
+      };
     }
   }
 }
