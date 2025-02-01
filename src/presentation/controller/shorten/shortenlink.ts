@@ -1,3 +1,4 @@
+import { MissingParamError } from '../../errors';
 import { HttpRequest, HttpResponse } from '../../protocols';
 
 export class ShortenLinkController {
@@ -5,7 +6,7 @@ export class ShortenLinkController {
     if (!httpRequest.body.url) {
       return {
         statusCode: 400,
-        body: new Error('Missing param: url'),
+        body: new MissingParamError('url'),
       };
     }
   }

@@ -1,3 +1,4 @@
+import { MissingParamError } from '../../errors';
 import { ShortenLinkController } from './shortenlink';
 
 describe('ShortenLinkController', () => {
@@ -16,6 +17,6 @@ describe('ShortenLinkController', () => {
     };
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual(new Error('Missing param: url'));
+    expect(response.body).toEqual(new MissingParamError('url'));
   });
 });
