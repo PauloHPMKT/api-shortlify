@@ -1,10 +1,10 @@
 import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
 import { InvalidParamError, MissingParamError } from '../../errors';
 import { badRequest, serverError } from '../../helpers/http-responses';
-import { HttpRequest, HttpResponse } from '../../protocols';
+import { Controller, HttpRequest, HttpResponse } from '../../protocols';
 import { UrlValidator } from '../../protocols/url-validator';
 
-export class GenerateShortenLinkController {
+export class GenerateShortenLinkController implements Controller {
   constructor(
     private readonly urlValidator: UrlValidator,
     private readonly createShortenLink: CreateShortenLink,
