@@ -1,6 +1,6 @@
 import { Account } from '../../../domain/entities/account/Account';
-import { AddAccountModel } from '../../../domain/models/add-account';
-import { AddAccount } from '../../../domain/usecases/add-account';
+import { AddAccountModel } from '../../../domain/models/account/add-account';
+import { AddAccount } from '../../../domain/usecases/account/add-account';
 import {
   InvalidParamError,
   MissingParamError,

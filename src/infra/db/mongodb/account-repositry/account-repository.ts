@@ -1,7 +1,7 @@
 import { AddAccountRepository } from '../../../../data/protocols/add-account-repository';
 import { VerifyAccountRepository } from '../../../../data/protocols/verify-account-repository';
 import { Account } from '../../../../domain/entities/account/Account';
-import { AccountModel } from '../../../../domain/models/account';
+import { AccountModel } from '../../../../domain/models/account/account';
 import { MongoHelper } from '../helpers/mongo-helper';
 
 export class AccountMongoRepository

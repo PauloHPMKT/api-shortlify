@@ -6,7 +6,7 @@ import {
 } from '../../protocols';
 import { MissingParamError, InvalidParamError } from '../../errors';
 import { badRequest, created, serverError } from '../../helpers/http-responses';
-import { AddAccount } from '../../../domain/usecases/add-account';
+import { AddAccount } from '../../../domain/usecases/account/add-account';
 
 export class SignupController implements Controller {
   constructor(
