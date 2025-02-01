@@ -1,4 +1,4 @@
-import { MissingParamError } from '../../../errors';
+import { MissingParamError } from '../../errors';
 import { GenerateBitlinkController } from './generate';
 
 const makeSut = (): GenerateBitlinkController => {
