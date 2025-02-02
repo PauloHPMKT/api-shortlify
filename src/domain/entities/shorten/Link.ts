@@ -1,14 +1,12 @@
 export class Link {
   public readonly id: string;
-  public archived: boolean;
-  public created_at?: Date;
-  public custom_bitlinks?: any[];
-  public deeplinks?: any[];
-  public custom_id: string;
   public link: string;
   public long_url: string;
+  public custom_id: string;
   public references: ShortenLink.GroupTypes;
+  public archived?: boolean;
   public tags?: any[];
+  public created_at?: Date;
 
   constructor(props: any) {
     Object.assign(this, props);
