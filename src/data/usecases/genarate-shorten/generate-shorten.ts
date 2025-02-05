@@ -10,7 +10,7 @@ export class GenerateShortenLinkUseCase implements CreateShortenLink {
     private readonly setCacheRepository: SetCacheRepository,
   ) {}
 
-  async execute(url: CreateShortenLinkModel): Promise<any> {
+  async execute(url: CreateShortenLinkModel): Promise<Link> {
     const { long_url } = url;
     const data = await this.shortenLinkService.shorten(long_url);
 
