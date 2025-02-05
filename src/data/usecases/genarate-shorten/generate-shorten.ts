@@ -1,33 +1,25 @@
+import { Link } from '../../../domain/entities/shorten/Link';
 import { CreateShortenLinkModel } from '../../../domain/models/shorten/create-shortenlink';
 import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
+import { SetCacheRepository } from '../../protocols/shorten/set-cache-repository';
 import { ShortenLink } from '../../protocols/shortenlink';
 
 export class GenerateShortenLinkUseCase implements CreateShortenLink {
-  constructor(private readonly shortenLinkService: ShortenLink) {}
+  constructor(
+    private readonly shortenLinkService: ShortenLink,
+    private readonly setCacheRepository: SetCacheRepository,
+  ) {}
 
   async execute(url: CreateShortenLinkModel): Promise<any> {
     const { long_url } = url;
-    // encurtar a url
-    await this.shortenLinkService.shorten(long_url);
+    const data = await this.shortenLinkService.shorten(long_url);
 
-    // criar a entidade
+    const shortenLinkData = new Link(data);
 
-    // salvar no cache
+    const shortenLinkDataCache = JSON.stringify(shortenLinkData);
+    const key = `shortenLink:${shortenLinkData.long_url}`;
+    await this.setCacheRepository.set(key, shortenLinkDataCache);
 
-    // retornar a entidade salva
-    return new Promise((resolve) =>
-      resolve({
-        id: 'valid_id',
-        archived: true,
-        custom_bitlinks: [],
-        deeplinks: [],
-        custom_id: 'valid_custom_id',
-        link: 'valid_link',
-        long_url: 'valid_long_url',
-        references: {},
-        tags: [],
-        created_at: new Date('2025-02-02T00:00:00.000Z'),
-      }),
-    );
+    return shortenLinkData;
   }
 }
