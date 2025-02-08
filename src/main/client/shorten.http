@@ -1,8 +1,5 @@
-@apiKey = a0ee0dfccca7228da50a76644d16f0d35febc0c5
-
-POST https://api-ssl.bitly.com/v4/shorten
+POST http://localhost:3003/api/shorten
 Content-Type: application/json
-Authorization: Bearer {{apiKey}}
 
 {
   "long_url": "https://www.jetbrains.com/youtrack/?source=google&medium=cpc&campaign=AMER_en_BR_YouTrack_Branded&term=youtrack&content=686760334500&adgroup=youtrack&gad_source=1&gclid=CjwKCAiAqfe8BhBwEiwAsne6gab31VQTUbVHa1SDBuZHkICNxJGEh6uUcFrWqANsJkGb-XiqbV2obhoCQ4QQAvD_BwE"

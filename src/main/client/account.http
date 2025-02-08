@@ -2,8 +2,8 @@ POST http://localhost:3003/api/signup
 Content-Type: application/json
 
 {
-  "name": "Ana Paula",
-  "email": "anapaula@gmail.com",
+  "name": "Mia Pessoa Nascimento",
+  "email": "miazinhalinda@gmail.com",
   "password": "123456",
   "passwordConfirmation": "123456"
 }

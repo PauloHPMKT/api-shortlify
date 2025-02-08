@@ -1,4 +1,5 @@
 import { BitlyService } from './bitly-service';
+import 'dotenv/config';
 
 const makeSut = (): BitlyService => {
   const sut = new BitlyService();
