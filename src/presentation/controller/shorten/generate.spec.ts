@@ -15,8 +15,8 @@ const makeCreateShortenLink = (): CreateShortenLink => {
           custom_bitlinks: [],
           deeplinks: [],
           custom_id: 'valid_custom_id',
-          link: 'valid_link',
-          long_url: 'valid_long_url',
+          link: 'http://valid_link',
+          long_url: 'http://valid_long_url',
           references: {},
           tags: [],
           created_at: new Date(),
@@ -101,11 +101,11 @@ describe('GenerateShortenLinkController', () => {
     const isValidSpy = jest.spyOn(urlValidatorStub, 'isValid');
     const httpRequest = {
       body: {
-        long_url: 'any_url',
+        long_url: 'http://any_url',
       },
     };
     await sut.handle(httpRequest);
-    expect(isValidSpy).toHaveBeenCalledWith('any_url');
+    expect(isValidSpy).toHaveBeenCalledWith('http://any_url');
   });
 
   it('should return 500 if GenerateShortenLinkController throws', async () => {
@@ -128,11 +128,11 @@ describe('GenerateShortenLinkController', () => {
     const executeSpy = jest.spyOn(createShortenLinkStub, 'execute');
     const httpRequest = {
       body: {
-        long_url: 'any_url',
+        long_url: 'http://any_url',
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(executeSpy).toHaveBeenCalledWith({ long_url: 'any_url' });
+    expect(executeSpy).toHaveBeenCalledWith({ long_url: 'http://any_url' });
     expect(executeSpy).toHaveBeenCalledTimes(1);
     expect(httpResponse.statusCode).toBe(200);
     expect(httpResponse.body).toEqual({
@@ -141,8 +141,8 @@ describe('GenerateShortenLinkController', () => {
       custom_bitlinks: [],
       deeplinks: [],
       custom_id: 'valid_custom_id',
-      link: 'valid_link',
-      long_url: 'valid_long_url',
+      link: 'http://valid_link',
+      long_url: 'http://valid_long_url',
       references: {},
       tags: [],
       created_at: new Date('2025-02-01'),

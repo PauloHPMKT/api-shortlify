@@ -3,26 +3,25 @@ import { GenerateShortenLinkUseCase } from '../../data/usecases/genarate-shorten
 import { BitlyService } from '../../infra/bitly/bitly-service';
 import { GenerateShortenLinkController } from '../../presentation/controller/shorten/generate';
 import { Controller } from '../../presentation/protocols';
-
-class UrlValidatorAdapter {
-  isValid(url: string): boolean {
-    return true;
-  }
-}
+import { EmailValidatorAdapter } from '../../presentation/utils/email-validator-adapter';
+import { UrlValidatorAdapter } from '../../presentation/utils/url-validator-adapter';
 
 class RedisService implements SetCacheRepository {
   async set(key: string, value: string): Promise<void> {
-    console.log(key, value);
+    //console.log(key, value);
   }
 }
 
 export const makeGenarateShortenLinkController = (): Controller => {
   const shortenLinkService = new BitlyService();
   const cacheRepository = new RedisService();
-  const urlValidator = new UrlValidatorAdapter();
+  const emailValidatorAdapter = new UrlValidatorAdapter();
   const createShortenLink = new GenerateShortenLinkUseCase(
     shortenLinkService,
     cacheRepository,
   );
-  return new GenerateShortenLinkController(urlValidator, createShortenLink);
+  return new GenerateShortenLinkController(
+    emailValidatorAdapter,
+    createShortenLink,
+  );
 };

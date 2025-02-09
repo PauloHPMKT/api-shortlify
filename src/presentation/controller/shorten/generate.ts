@@ -17,6 +17,7 @@ export class GenerateShortenLinkController implements Controller {
       if (!long_url) {
         return badRequest(new MissingParamError('long_url'));
       }
+
       const isUrlValid = this.urlValidator.isValid(long_url);
       if (!isUrlValid) {
         return badRequest(new InvalidParamError('long_url'));
