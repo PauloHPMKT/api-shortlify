@@ -1,5 +1,5 @@
 import { SetCacheRepository } from '../../protocols/shorten/set-cache-repository';
-import { ShortenLink } from '../../protocols/shortenlink';
+import { ShortenLink } from '../../protocols/shorten/shortenlink';
 import { GenerateShortenLinkUseCase } from './generate-shorten';
 
 const makeCacheShortenLink = (): SetCacheRepository => {

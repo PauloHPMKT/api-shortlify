@@ -2,7 +2,7 @@ import { Link } from '../../../domain/entities/shorten/Link';
 import { CreateShortenLinkModel } from '../../../domain/models/shorten/create-shortenlink';
 import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
 import { SetCacheRepository } from '../../protocols/shorten/set-cache-repository';
-import { ShortenLink } from '../../protocols/shortenlink';
+import { ShortenLink } from '../../protocols/shorten/shortenlink';
 
 export class GenerateShortenLinkUseCase implements CreateShortenLink {
   constructor(

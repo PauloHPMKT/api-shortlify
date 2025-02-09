@@ -1,4 +1,4 @@
-import { ShortenLink } from '../../data/protocols/shortenlink';
+import { ShortenLink } from '../../data/protocols/shorten/shortenlink';
 
 export class BitlyService implements ShortenLink {
   private readonly apiUrl = process.env.BITLY_URL as string;

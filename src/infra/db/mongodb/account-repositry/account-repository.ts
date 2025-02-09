@@ -1,5 +1,5 @@
-import { AddAccountRepository } from '../../../../data/protocols/add-account-repository';
-import { VerifyAccountRepository } from '../../../../data/protocols/verify-account-repository';
+import { AddAccountRepository } from '../../../../data/protocols/account/add-account-repository';
+import { VerifyAccountRepository } from '../../../../data/protocols/account/verify-account-repository';
 import { Account } from '../../../../domain/entities/account/Account';
 import { AccountModel } from '../../../../domain/models/account/account';
 import { MongoHelper } from '../helpers/mongo-helper';
