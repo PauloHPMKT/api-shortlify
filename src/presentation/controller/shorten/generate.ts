@@ -1,6 +1,6 @@
 import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { badRequest, serverError } from '../../helpers/http-responses';
+import { badRequest, serverError, ok } from '../../helpers/http-responses';
 import { Controller, HttpRequest, HttpResponse } from '../../protocols';
 import { UrlValidator } from '../../protocols/url-validator';
 
@@ -24,15 +24,9 @@ export class GenerateShortenLinkController implements Controller {
       }
 
       const shortenData = await this.createShortenLink.execute({ long_url });
-      return {
-        statusCode: 200,
-        body: shortenData,
-      };
+      return ok(shortenData);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: serverError(),
-      };
+      return serverError();
     }
   }
 }

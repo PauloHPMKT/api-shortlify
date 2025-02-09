@@ -1,6 +1,10 @@
 import { CreateShortenLinkModel } from '../../../domain/models/shorten/create-shortenlink';
 import { CreateShortenLink } from '../../../domain/usecases/shorten/create-shortenlink';
-import { InvalidParamError, MissingParamError } from '../../errors';
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError,
+} from '../../errors';
 import { serverError } from '../../helpers/http-responses';
 import { UrlValidator } from '../../protocols/url-validator';
 import { GenerateShortenLinkController } from './generate';
@@ -120,7 +124,7 @@ describe('GenerateShortenLinkController', () => {
     };
     const response = await sut.handle(httpRequest);
     expect(response.statusCode).toBe(500);
-    expect(response.body).toEqual(serverError());
+    expect(response.body).toEqual(new ServerError());
   });
 
   it('should call CreateShortenLink with correct values', async () => {
