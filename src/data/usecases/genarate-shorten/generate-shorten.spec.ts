@@ -1,3 +1,4 @@
+import { Link } from '../../../domain/entities/shorten/Link';
 import { SetCacheRepository } from '../../protocols/shorten/set-cache-repository';
 import { ShortenLink } from '../../protocols/shorten/shortenlink';
 import { GenerateShortenLinkUseCase } from './generate-shorten';
@@ -13,15 +14,16 @@ const makeCacheShortenLink = (): SetCacheRepository => {
 
 const makeShortenLink = (): ShortenLink => {
   class ShortenLinkServiceStub implements ShortenLink {
-    async shorten(url: string): Promise<any> {
+    async shorten(url: string): Promise<Link> {
       return new Promise((resolve) =>
         resolve({
-          id: 'valid_id',
-          archived: true,
-          custom_id: 'valid_custom_id',
           link: 'valid_link',
           long_url: 'valid_long_url',
-          references: {},
+          custom_id: 'valid_custom_id',
+          references: {
+            group: 'valid_group',
+          },
+          archived: false,
           tags: [],
           created_at: new Date('2025-02-02T00:00:00.000Z'),
         }),
@@ -60,12 +62,13 @@ describe('GenerateShorten', () => {
   it('should return a shorten link data', async () => {
     const { sut, shortenLinkServiceStub } = makeSut();
     const shortenData = {
-      id: 'valid_id',
-      archived: true,
-      custom_id: 'valid_custom_id',
       link: 'valid_link',
       long_url: 'valid_long_url',
-      references: {},
+      custom_id: 'valid_custom_id',
+      references: {
+        group: 'valid_group',
+      },
+      archived: false,
       tags: [],
       created_at: new Date('2025-02-02'),
     };
@@ -74,12 +77,13 @@ describe('GenerateShorten', () => {
       .mockReturnValueOnce(new Promise((resolve) => resolve(shortenData)));
     const response = await sut.execute({ long_url: 'any_url' });
     expect(response).toEqual({
-      id: 'valid_id',
-      archived: true,
-      custom_id: 'valid_custom_id',
       link: 'valid_link',
       long_url: 'valid_long_url',
-      references: {},
+      custom_id: 'valid_custom_id',
+      references: {
+        group: 'valid_group',
+      },
+      archived: false,
       tags: [],
       created_at: new Date('2025-02-02'),
     });
@@ -89,12 +93,13 @@ describe('GenerateShorten', () => {
     const { sut, setCacheRepositoryStub } = makeSut();
     const setSpy = jest.spyOn(setCacheRepositoryStub, 'set');
     const shortenLinkDataString = JSON.stringify({
-      id: 'valid_id',
       link: 'valid_link',
       long_url: 'valid_long_url',
       custom_id: 'valid_custom_id',
-      references: {},
-      archived: true,
+      references: {
+        group: 'valid_group',
+      },
+      archived: false,
       tags: [],
       created_at: new Date('2025-02-02'),
     });

@@ -13,7 +13,6 @@ export class GenerateShortenLinkUseCase implements CreateShortenLink {
   async execute(url: CreateShortenLinkModel): Promise<Link> {
     const { long_url } = url;
     const data = await this.shortenLinkService.shorten(long_url);
-
     const shortenLinkData = new Link(data);
 
     const shortenLinkDataCache = JSON.stringify(shortenLinkData);
